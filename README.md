@@ -77,5 +77,87 @@ interface Ethernet0/0.90
 
 # Legacy Inter-VLAN Routing (Edifício B) 
 
+```bash
+-------------- ROUTER B --------------
+
+interface Ethernet0/3
+ ip address 192.168.11.1 255.255.255.0
+ no shutdown
+
+interface Ethernet1/0
+ ip address 192.168.21.1 255.255.255.192
+ no shutdown
+
+interface Ethernet1/1
+ ip address 192.168.30.1 255.255.255.240
+ no shutdown
+
+interface Ethernet1/2
+ ip address 192.168.40.1 255.255.255.224
+ no shutdown
+
+interface Ethernet1/3
+ ip address 192.168.61.1 255.255.255.248
+ no shutdown
+
+interface Ethernet2/0
+ ip address 192.168.71.1 255.255.255.224
+ no shutdown
+
+interface Ethernet2/1
+ ip address 192.168.81.1 255.255.255.248
+ no shutdown
+
+interface Ethernet2/2
+ ip address 192.168.91.1 255.255.255.224
+ no shutdown
+
+-------------- SWITCH BB6 --------------
+
+interface Ethernet0/3
+ switchport mode access
+ switchport access vlan 11
+exit
+interface Ethernet1/0
+ switchport mode access
+ switchport access vlan 21
+exit
+interface Ethernet1/1
+ switchport mode access
+ switchport access vlan 30
+exit
+interface Ethernet1/2
+ switchport mode access
+ switchport access vlan 40
+exit
+interface Ethernet1/3
+ switchport mode access
+ switchport access vlan 61
+exit
+interface Ethernet2/0
+ switchport mode access
+ switchport access vlan 71
+exit
+interface Ethernet2/1
+ switchport mode access
+ switchport access vlan 81
+exit
+interface Ethernet2/2
+ switchport mode access
+ switchport access vlan 91
+exit
+
+interface vlan 91
+ ip address 192.168.91.26 255.255.255.224
+ no shutdown
+exit
+
+ip default-gateway 192.168.91.1
+
+end
+write memory
+
+```
+
 # Servidor DHCP (Router Datacenter) 
 
