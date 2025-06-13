@@ -4,8 +4,6 @@
 
 # 2. Endereçamento IPv4 
 
-# 3. VLANs
-
 | VLAN ID | Nome VLAN              | Segmento             | Local        | Nº Hosts | Nº Hosts Reais | CIDR  | Sub-rede             | Gateway         | Máscara             | IPs utilizáveis     |
 |---------|------------------------|-----------------------|--------------|----------|-----------------|-------|-----------------------|------------------|----------------------|----------------------|
 | 10      | VLAN_ALUNOS_A          | Alunos                | Edifício A   | 80       | 83              | /25   | 192.168.10.0/25       | 192.168.10.1     | 255.255.255.128      | .2 – .126            |
@@ -26,15 +24,132 @@
 | 92      | VLAN_GESTAO_REDE_DATASET | Gestão equipamentos | Dataset      | 5        | 8               | /27   | 192.168.92.0/27       | 192.168.92.1     | 255.255.255.224      | .2 – .30             |
 | 99      | PARKING_LOT            | Parking               | AMBOS        |          |                 |       |                       |                  |                      |                      |
 
+# 3. VLANs
+
+## 3.1 CRIAR VLANS
+
+## SWITCH EDIFICIO A
+```
+vlan 10
+ name ALUNOS_A
+vlan 20
+ name PROFESSORES_A
+vlan 50
+ name SERV_INFO
+vlan 60
+ name CONVIDADOS_A
+vlan 70
+ name TELEFONES_A
+vlan 80
+ name IMPRESSORAS_A
+vlan 90
+ name GESTAO_REDE_A
+vlan 99
+ name PARKING_LOT
+```
+## SWITCH EDIFICIO B
+``` 
+vlan 11
+ name ALUNOS_B
+vlan 21
+ name PROFESSORES_B
+vlan 30
+ name SERV_FINANCEIROS
+vlan 40
+ name SERV_ACADEMICOS
+vlan 61
+ name CONVIDADOS_B
+vlan 71
+ name TELEFONES_B
+vlan 81
+ name IMPRESSORAS_B
+vlan 91
+ name GESTAO_REDE_B
+vlan 99
+ name PARKING_LOT
+```
+
+## SWITCH DATACENTER
+``` 
+vlan 92
+ name GESTAO_REDE_DATASET
+vlan 99
+ name PARKING_LOT
+```
+
+## 3.1 TRUNK PORTS
+
+## EDIFICIO A
+
+```
+------------ BASTIDOR 1 ------------
+interface range ethernet0/0 - 2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 60
+ switchport trunk allowed vlan 10,20,50,60,70,80,90
+ 
+------------ BASTIDOR 2 ------------ 
+interface range ethernet0/0
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 60
+ switchport trunk allowed vlan 10,20,50,60,70,80,90
+
+------------ ENTREBASTIDORES ------------ 
+
+interface range ethernet1/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 60
+ switchport trunk allowed vlan 10,20,50,60,70,80,90
+
+interface range ethernet0/3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 60
+ switchport trunk allowed vlan 10,20,50,60,70,80,90
+ 
+interface range ethernet1/0
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 60
+ switchport trunk allowed vlan 10,20,50,60,70,80,90
+
+```
+ 
+## EDIFICIO B
+
+```
+interface range ethernet0/0 - 2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 61
+ switchport trunk allowed vlan 11,21,30,40,50,61,71,81,91
+ 
+interface range ethernet0/3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk native vlan 61
+ switchport trunk allowed vlan 11,21,30,40,50,61,71,81,91
+ ```
+
+## DATABASE 
+
+```
+interface range ethernet0/0 - 1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 92
+```
 
 # 4. Routing estático 
 
 # 5. Router on-a-stick (Edifício A) 
 
-## ----- ROUTER A -----
+## ROUTER A 
 
 ```bash
-
 interface e0/3
  switchport trunk encapsulation dot1q
  switchport mode trunk
@@ -76,15 +191,13 @@ interface Ethernet0/0.80
 interface Ethernet0/0.90
  encapsulation dot1Q 90
  ip address 192.168.90.1 255.255.255.224
-
 ```
 
-# Legacy Inter-VLAN Routing (Edifício B) 
+# 6. Legacy Inter-VLAN Routing (Edifício B) 
 
-## ----- ROUTER B -----
+## ROUTER B 
 
 ```bash
-
 interface Ethernet0/3
  ip address 192.168.11.1 255.255.255.0
  no shutdown
@@ -116,13 +229,11 @@ interface Ethernet2/1
 interface Ethernet2/2
  ip address 192.168.91.1 255.255.255.224
  no shutdown
-
 ````
 
-## ----- SWITCH BB6 -----
+## SWITCH BB6 
 
 ```bash
-
 interface Ethernet0/3
  switchport mode access
  switchport access vlan 11
@@ -165,16 +276,13 @@ ip default-gateway 192.168.91.1
 
 end
 write memory
-
 ```
 
-# Servidor DHCP (Router Datacenter) 
+# 7. Servidor DHCP (Router Datacenter) 
 
-## ----- DATABASE ROUTER ----- 
+## ROUTER DATABASE 
 
 ```bash
-
-
 conf t
 ip dhcp excluded-address 10.0.1.1 10.0.1.2
 ip dhcp excluded-address 10.0.2.1 10.0.2.2
@@ -289,10 +397,9 @@ ip dhcp pool POOL_GEST_DATA
 exit
 ```
  
-## ----- ROUTER A ----- (Relay)
+## ROUTER A (Relay)
 
 ```bash
-
 conf t
 
 interface e0/0.10
@@ -324,18 +431,127 @@ interface e0/0.90
 exit
 
 write memory
-
 ```
  
  
-## ----- ROUTER B ----- (Relay)
+## ROUTER B (Relay)
 
  ```bash
-
 conf t
 interface range e0/3 e1/0 - 3 e2/0 - 2
  ip helper-address 10.0.3.1
 exit
+```
 
+# 8. Redundância de L2 (Spanning Tree Protocol) 
+
+
+## 8.1 EDIFICIO B 
+
+## TODOS OS SWITCHS
+
+```
+configure terminal
+spanning-tree vlan 11
+spanning-tree vlan 21
+spanning-tree vlan 30
+spanning-tree vlan 40
+spanning-tree vlan 61
+spanning-tree vlan 71
+spanning-tree vlan 81
+spanning-tree vlan 91
+exit
+```
+
+
+## BB2-S6 (ROOT BRIDGE)
+
+```
+configure terminal
+spanning-tree vlan 11 priority 0
+spanning-tree vlan 21 priority 0
+spanning-tree vlan 30 priority 0
+spanning-tree vlan 40 priority 0
+spanning-tree vlan 61 priority 0
+spanning-tree vlan 71 priority 0
+spanning-tree vlan 81 priority 0
+spanning-tree vlan 91 priority 0
+exit
+```
+
+## BB1-S1 a S6, BB2-S1 a S5 (OUTROS)
+
+```
+configure terminal
+spanning-tree vlan 11 priority 32768
+spanning-tree vlan 21 priority 32768
+spanning-tree vlan 30 priority 32768
+spanning-tree vlan 40 priority 32768
+spanning-tree vlan 61 priority 32768
+spanning-tree vlan 71 priority 32768
+spanning-tree vlan 81 priority 32768
+spanning-tree vlan 91 priority 32768
+exit
+```
+
+
+## 8.2 EDIFICIO A 
+
+
+## TODOS OS SWITCHS
+
+```
+configure terminal
+spanning-tree vlan 10
+spanning-tree vlan 20
+spanning-tree vlan 50
+spanning-tree vlan 60
+spanning-tree vlan 70
+spanning-tree vlan 80
+spanning-tree vlan 91
+exit
+```
+
+## BA1-S1 (ROOT BRIDGE)
+
+```
+configure terminal
+spanning-tree vlan 10 root primary
+spanning-tree vlan 20 root primary
+spanning-tree vlan 50 root primary
+spanning-tree vlan 60 root primary
+spanning-tree vlan 70 root primary
+spanning-tree vlan 80 root primary
+spanning-tree vlan 90 root primary
+exit
+```
+
+
+## BA1-S3 (ROOT SECONDARY)
+
+```
+configure terminal
+spanning-tree vlan 10 root secondary
+spanning-tree vlan 20 root secondary
+spanning-tree vlan 50 root secondary
+spanning-tree vlan 60 root secondary
+spanning-tree vlan 70 root secondary
+spanning-tree vlan 80 root secondary
+spanning-tree vlan 90 root secondary
+exit
+```
+
+## BA1-S2, BA1-S4, BA2-S1, BA2-S2 (OUTROS)
+
+```
+configure terminal
+spanning-tree vlan 10 priority 32768
+spanning-tree vlan 20 priority 32768
+spanning-tree vlan 50 priority 32768
+spanning-tree vlan 60 priority 32768
+spanning-tree vlan 70 priority 32768
+spanning-tree vlan 80 priority 32768
+spanning-tree vlan 90 priority 32768
+exit
 ```
 
