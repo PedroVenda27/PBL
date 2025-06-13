@@ -105,6 +105,8 @@ vlan 90
 vlan 99
  name PARKING_LOT
 ```
+
+
 ## SWITCH EDIFICIO B
 ``` 
 vlan 11
@@ -196,11 +198,24 @@ interface range ethernet0/3
 
 ## DATABASE 
 
+
 ```
-interface range ethernet0/0 - 1
- switchport trunk encapsulation dot1q
+------- LAN DATACENTER -------
+interface Et0/0
+ switchport trunk encapsulation dot1q     
  switchport mode trunk
- switchport trunk allowed vlan 92
+ switchport trunk allowed vlan 92,93
+exit
+
+```
+
+## 3.1 ACCESS PORTS
+
+```
+Interface <interface id>
+Switchport mode access
+Switchport access vlan <vlan id>
+Exit
 ```
 
 # 4. Routing estático 
