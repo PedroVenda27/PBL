@@ -236,11 +236,14 @@ show interfaces status
 
 # 4. Routing estático 
 
-# 5. Router on-a-stick (Edifício A) 
+# 5. Router on-a-stick (Edifício A) ( Router Datacenter
 
 ## ROUTER A 
 
 ```bash
+
+! Switch de Ligação colocar em trunk BA1-S1
+
 interface e0/3
  switchport trunk encapsulation dot1q
  switchport mode trunk
@@ -282,6 +285,28 @@ interface Ethernet0/0.80
 interface Ethernet0/0.90
  encapsulation dot1Q 90
  ip address 192.168.90.1 255.255.255.224
+```
+
+## ROUTER DATACENTER
+
+```
+
+! Switch de Ligação colocar em trunk LAN-Datacenter
+
+conf t
+interface Et0/0
+ switchport trunk encapsulation dot1q     
+ switchport mode trunk
+ switchport trunk allowed vlan 92,93
+exit
+
+interface Ethernet0/1.92
+ encapsulation dot1Q 92
+ ip address 192.168.92.1 255.255.255.224
+ 
+ interface Ethernet0/1.93
+ encapsulation dot1Q 93
+ ip address 192.168.93.1 255.255.255.248
 ```
 
 # 6. Legacy Inter-VLAN Routing (Edifício B) 
