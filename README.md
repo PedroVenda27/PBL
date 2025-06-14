@@ -694,6 +694,39 @@ exit
 
 # 11. Segurança STP 
 
+
+## PORTFAST
+
+Fazer nas Portas Access a equipamentos treminais
+```
+spanning-tree portfast
+```
+## BPDU GUARD
+
+Fazer nas Portas Access a equipamentos treminais
+```
+spanning-tree bpduguard enable
+```
+## ROOT GUARD
+
+Fazer nas Portas Designated
+```
+spanning-tree guard root
+```
+## LOOP guard
+
+Fazer nas Portas Bloked/Alternate
+
+```
+spanning-tree guard loop 
+```
+
+## VERIFICAÇÕES
+
+```
+show spanning tree
+```	
+
 # 11.1 EDIFICIO A
 
 ```
@@ -792,6 +825,7 @@ exit
 -SW6
     Todas en designated (ROOT BRIDGE) 
 ```
-	
-		
+
+
+
 
