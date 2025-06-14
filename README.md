@@ -236,7 +236,7 @@ show interfaces status
 
 # 4. Routing estático 
 
-# 5. Router on-a-stick (Edifício A) ( Router Datacenter
+# 5. Router on-a-stick (Edifício A) (Router Datacenter)
 
 ## ROUTER A 
 
@@ -670,4 +670,128 @@ spanning-tree vlan 80 priority 32768
 spanning-tree vlan 90 priority 32768
 exit
 ```
+
+
+
+
+
+
+
+
+
+# 10. Implementação de Port Security
+
+Deve Ser Feito em Todas as Interfaces em Modo Acesso
+```
+conf t
+interface range <interface id>
+ switchport port-security
+ switchport port-security maximum 1
+ switchport port-security violation shutdown
+ switchport port-security mac-address sticky
+exit
+```
+
+# 11. Segurança STP 
+
+# 11.1 EDIFICIO A
+
+```
+
+------- BASTIDOR 1 ------
+
+-SW1
+    E0/0-3 designated (ROOT BRIDGE)
+-SW2
+    E0/0 root
+    E0/1-2 block - LOOP GUARD
+-SW3
+    E0/0 designated - ROOT GUARD
+    E0/1 root
+    E0/2 designated - ROOT GUARD
+    E1/2 designated - ROOT GUARD
+-SW4
+    E0/0 block - LOOP GUARD
+    E0/1 designated - ROOT GUARD
+    E0/2 root
+    E1/2 designated - ROOT GUARD
+ 
+------- BASTIDOR 2 ------
+
+-SW1
+    E0/0 designated - ROOT GUARD
+    E0/3 root
+-SW2
+    E0/0 block - LOOP GUARD
+    E1/0 root
+
+```
+
+# 11.2 EDIFICIO B
+
+```
+------- BASTIDOR 1 ------
+
+-SW1 
+    E0/0 designated - ROOT GUARD
+    E0/1 blocked    - LOOP GUARD
+    E0/2 root
+-SW2
+    E0/0 block - LOOP GUARD
+    E0/1 root
+	
+-SW3
+    E0/0 designated - ROOT GUARD
+    E0/1 root
+    E0/2 designated - ROOT GUARD
+-SW4
+    E0/0 block - LOOP GUARD
+    E0/1 designated - ROOT GUARD
+    E0/3 root
+
+-SW5
+    E0/0 designated - ROOT GUARD
+    E0/1 root
+    E0/2 designated - ROOT GUARD
+    E0/3 block - LOOP GUARD
+
+-SW6 
+	E0/1 designated - ROOT GUARD
+
+------- BASTIDOR 2  ------
+
+-SW1
+    E0/0 root
+    E0/1 designated - ROOT GUARD
+    E0/2 block - LOOP GUARD
+    E0/3 designated - ROOT GUARD
+
+-SW2
+    E0/0 designated - ROOT GUARD
+    E0/1 designated - ROOT GUARD
+    E0/2 root
+    E0/3 designated - ROOT GUARD
+
+-SW3
+    E0/0 block - LOOP GUARD
+    E0/1 root
+    E0/2 block - LOOP GUARD
+    E0/3 designated - ROOT GUARD
+
+-SW4 
+    E0/0 block - LOOP GUARD
+    E0/1 block - LOOP GUARD
+    E0/2 root
+
+-SW5
+    E0/0 designated - ROOT GUARD
+    E0/1 root
+    E0/2 designated - ROOT GUARD
+	E0/3 designated - ROOT GUARD
+
+-SW6
+    Todas en designated (ROOT BRIDGE) 
+```
+	
+		
 
