@@ -10,6 +10,7 @@
 | Impresoras edificio propio |  |
 
 2. Professores
+   
 | PERMIT | DENY |
 | :---: | :---: |
 | HTTP institucional | FTP |
@@ -20,6 +21,8 @@
 |  HTTP |  |
 
 3. Serviços Financieiros
+   
+
 | PERMIT | DENY |
 | :---: | :---: |
 | HTTP institucional | HTTP |
@@ -28,6 +31,7 @@
 | Impresoras edificio propio |  |
 
 4. Serviços Academicos
+   
 | PERMIT | DENY |
 | :---: | :---: |
 | HTTP institucional | FTP |
