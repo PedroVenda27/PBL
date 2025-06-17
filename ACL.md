@@ -51,15 +51,5 @@
 
 
 ## Reglas necesarias
-### Admit + permit
-- Deny HTTP
-- Deny FTP
-- Deny interedificios -> No dar acceso a la red del otro edificio (out)
-- Allow DHCP (esto va en todos, no hay ningúno prohibido)
-- Allow Internet
-- Allow Interedificios
-
-### Admit all en todo
-- Deny HTTP
-- Deny FTP
-- Deny interedificios
+### Deny any
+- permit tcp any host [IP_INST] eq 80 ! HTTP 
