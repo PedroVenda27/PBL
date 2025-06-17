@@ -268,7 +268,7 @@ interface Ethernet0/0.50
 
 ! VLAN 60 - CONVIDADOS_A
 interface Ethernet0/0.60
- encapsulation dot1Q 60
+ encapsulation dot1Q 60 native
  ip address 192.168.60.1 255.255.255.248 ---
 
 ! VLAN 70 - TELEFONES_A
