@@ -78,7 +78,7 @@
 | 91      | VLAN_GESTAO_REDE_B       | Gestão equipamentos   | Edifício B   | 5        | 8               | /27   | 192.168.91.0/27       | 192.168.91.1     | 255.255.255.224      | .2 – .30             |
 | 92      | VLAN_GESTAO_REDE_DATASET | Gestão equipamentos   | Datacenter   | 5        | 8               | /27   | 192.168.92.0/27       | 192.168.92.1     | 255.255.255.224      | .2 – .30             |
 | 93      | DATACENTER               | Datacenter            | Datacenter   | 29       | 29              | /27   | 192.168.93.0/27       | 192.168.93.1     | 255.255.255.224      | .2 – .30             |
-| 94      | ISP                      | ISP                   | Datacenter   | 29       | 29              | /27   | 192.168.94.0/27       | 192.168.94.1     | 255.255.255.224      | .2 – .30             |
+| 94      | ISP                      | ISP                   | Datacenter   | 29       | 29              | /29   | 192.168.94.0/29       | 192.168.94.1     | 255.255.255.248      | .2 – .6             |
 | 99      | PARKING_LOT              | Parking               | Ambos        | -        | -               | -     | -                     | -                | -                    | -                    |
 
 
