@@ -52,4 +52,12 @@
 
 ## Reglas necesarias
 ### Deny any
-- permit tcp any host [IP_INST] eq 80 ! HTTP 
+- permit tcp any host [IP_INST] eq 80 ! HTTP inst
+- permit tcp any host [IP_HTTP_SERVER] eq 80 ! HTTP
+- permit tcp any host [IP_FTP] eq 21 ! FTP
+- permit tcp any host [IP_INTERNET] eq 80 ! Internet 1
+- permit tcp any host [IP_INTERNET] eq 443 ! Internet 2
+- permit udp any host [IP_ROUTER_DATACENTER] eq 67 ! DHCP
+- permit ip [IP_REDE_ORIGEN + MASCARA_INVERTIDA] [IP_REDE_DESTINO + MASCARA_INVERTIDA] ! Interedificios
+- permit ip [IP_REDE_ORIGEN + MASCARA_INVERTIDA] [IP_REDE_IMPRESORAS_EDIFICIO + MASCARA_INVERTIDA]
+- deny any any
