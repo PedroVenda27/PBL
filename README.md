@@ -2,6 +2,81 @@
 
 # 1. Topologia física e lógica 
 
+## 1.1 Constituição dos Edificios
+
+## 1.1.1 EDIFÍCIO A
+
+### BASTIDOR 1
+
+**Geral do edifício**
+ - 8 Impressoras
+ - 4 Telefone
+ - 1 PCs para convidados
+
+**Sala do Departamento de Serviços de Informática**
+ - 5 PCs (serviços de informática)
+ - 5 Telefones
+
+**Sala A1**
+ - 2 PC para professor
+ - 2 Telefone
+ - 50 PCs para alunos
+
+### BASTIDOR 2
+
+**Sala A2**
+ - 2 PC para professor
+ - 2 Telefone
+ - 15 PCs para alunos
+   
+**Sala A3**
+ - 2 PC para professor
+ - 2 Telefone
+ - 15 PCs para alunos
+
+## 1.1.2 EDIFÍCIO B
+
+### BASTIDOR 1
+
+**Laboratório de Informática**
+ - 120 PCs para alunos
+ - 2 PCs para professores
+ - 1 Telefones
+
+**Auditório**
+ - 2 PC para professor
+ - 1 Telefone
+
+### BASTIDOR 2
+
+**Geral do edifício**
+ - 7 Impressoras
+ - 4 Telefones
+ - 1 PC para convidados
+
+**Sala do Departamento de Serviços Financeiros**
+ - 10 PCs (serviços financeiros)
+ - 5 Telefones
+
+**Sala do Departamento de Serviços Académicos**
+ - 16 PCs (serviços académicos)
+ - 10 Telefones
+   
+**Sala de Professores**
+ - 25 PCs para professores
+ - 4 PC para convidados
+ - 3 Telefones
+
+**Laboratório de Informática**
+ - 120 PCs para alunos
+ - 2 PCs para professores
+ - 1 Telefones
+
+**Sala de Aulas B1**
+ - 2 PCs para professor
+ - 1 Telefone
+ - 35 PCs para alunos
+
 # 2. Endereçamento IPv4 
 
 ## SWITCHES
