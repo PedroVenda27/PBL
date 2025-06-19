@@ -163,6 +163,7 @@
 
 ## SWITCH EDIFICIO A
 ```
+conf t
 vlan 10
  name ALUNOS_A
 vlan 20
@@ -179,11 +180,14 @@ vlan 90
  name GESTAO_REDE_A
 vlan 99
  name PARKING_LOT
+exit
+write mem
 ```
 
 
 ## SWITCH EDIFICIO B
 ``` 
+conf t
 vlan 11
  name ALUNOS_B
 vlan 21
@@ -202,16 +206,21 @@ vlan 91
  name GESTAO_REDE_B
 vlan 99
  name PARKING_LOT
+end
+write mem
 ```
 
 ## SWITCH DATACENTER
 ``` 
+conf t 
 vlan 92
  name GESTAO_REDE_DATASET
 vlan 93
  name DATACENTER
 vlan 99
  name PARKING_LOT
+end
+write mem
 ```
 
 ## 3.1 TRUNK PORTS
