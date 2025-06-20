@@ -873,59 +873,89 @@ permit ip 192.168.70.0 0.0.0.31 192.168.71.0 0.0.0.31 ! Interedificios
 #### ALUNOS
 
 ip access-list extended ALUNOS_B
+
 permit tcp any host 192.168.93.3 eq 80 ! HTTP inst
+
 permit tcp any host 192.168.94.1 eq 80 ! Internet 1
+
 permit tcp any host 192.168.94.1 eq 443 ! Internet 2
+
 permit udp any host 192.168.11.1 eq 67 ! DHCP
+
 permit ip 192.168.11.0 0.0.0.255 192.168.80.0 0.0.0.15 ! Impresoras
+
 permit ip 192.168.11.0 0.0.0.255 192.168.10.0 0.0.0.127 ! Interedificios
 
 #### PROFESORES
 
 ip access-list extended PROFESORES_B
+
 permit tcp any host 192.168.93.3 eq 80 ! HTTP inst
+
 permit tcp any host 192.168.94.1 eq 80 ! Internet 1
+
 permit tcp any host 192.168.94.1 eq 443 ! Internet 2
+
 permit udp any host 255.255.255.255 eq 67 ! DHCP
+
 permit tcp any host 192.168.93.4 eq 80 ! HTTP
+
 permit ip 192.168.21.0 0.0.0.63 192.168.81.0 0.0.0.15 ! Impresoras
+
 permit ip 192.168.21.0 0.0.0.63 192.168.20.0 0.0.0.15 ! Interedificios
 
 #### FINANCIEROS
 
 ip access-list extended FINANCIEROS
+
 permit tcp any host 192.168.93.3 eq 80 ! HTTP inst
+
 permit tcp any host 192.168.94.1 eq 80 ! Internet 1
+
 permit tcp any host 192.168.94.1 eq 443 ! Internet 2
+
 permit udp any host 255.255.255.255 eq 67 ! DHCP
+
 permit ip 192.168.30.0 0.0.0.15 192.168.81.0 0.0.0.15 ! Impresoras
 
 #### ACADEMICOS
 
 ip access-list extended ACADEMICOS
+
 permit tcp any host 192.168.93.3 eq 80 ! HTTP inst
+
 permit tcp any host 192.168.94.1 eq 80 ! Internet 1
+
 permit tcp any host 192.168.94.1 eq 443 ! Internet 2
+
 permit udp any host 255.255.255.255 eq 67 ! DHCP
+
 permit tcp any host 192.168.93.4 eq 80 ! HTTP
+
 permit ip 192.168.40.0 0.0.0.31 192.168.81.0 0.0.0.15 ! Impresoras
 
 #### CONVIDADOS
 
 ip access-list extended CONVIDADOS_B
+
 permit tcp any host 192.168.94.1 eq 80 ! Internet 1
+
 permit tcp any host 192.168.94.1 eq 443 ! Internet 2
+
 permit udp any host 255.255.255.255 eq 67 ! DHCP
 
 #### IMPRESORAS
 
 ip access-list extended IMPRESORAS_B
+
 permit udp any host 255.255.255.255 eq 67 ! DHCP
 
 #### TELEFONES
 
 ip access-list extended TELEFONES_B
+
 permit udp any host 255.255.255.255 eq 67 ! DHCP
+
 permit ip 192.168.71.0 0.0.0.31 192.168.70.0 0.0.0.31 ! Interedificios
 
 
