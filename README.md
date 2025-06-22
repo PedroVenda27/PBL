@@ -92,8 +92,6 @@
 | 2           | BA2-S5     | 90       | 192.168.90.21        | 255.255.255.224     | 192.168.90.1        |
 | 2           | BA2-S6     | 90       | 192.168.90.22        | 255.255.255.224     | 192.168.90.1        |
 
----
-
 ### SWITCHES – EDIFÍCIO B
 
 | **Batidor** | **Switch** | **VLAN** | **Endereço IP**     | **Máscara**         | **Gateway**         |
@@ -117,7 +115,6 @@
 | **Switch** | **VLAN** | **Endereço IP**     | **Máscara**         | **Gateway**         |
 |------------|----------|----------------------|---------------------|---------------------|
 | LAN-DATACENTER    | 92       | 192.168.92.2        | 255.255.255.224     | 192.168.92.1        |
-
 
 ## ROUTERS
 
@@ -319,7 +316,11 @@ exit
 show interfaces status
 ```
 
-# 4. Routing estático 
+# 4. Static Routing 
+
+```
+STATIC ROUTING
+```
 
 # 5. Router on-a-stick (Edifício A) (Router Datacenter)
 
