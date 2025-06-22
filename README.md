@@ -808,16 +808,18 @@ spanning-tree guard loop
 ```
 
 ## ACL
-- Las ACL se han asignado todas con la característica 'in', ya que debido a las especificaciones de la red, era la mejor forma de prevenir el tráfico no deseado, prohibiendolo en origen y descargando de posibles paquetes que saturen la red.
-- Hay una ACL en cada VLAN del router de los edificios, para distribuir el tráfico lo más segregadamente posible
-- En el edificio A se asigno a las subinterfaces
+- Todas as ACLs foram atribuídas com o recurso 'in', já que devido às especificações da rede, era a melhor maneira de evitar o tráfego indesejado, proibindo-o na origem e descarregando possíveis pacotes que saturam a rede.
+
+- Há uma ACL em cada VLAN do router dos edifícios, para distribuir o tráfego o mais segregado possível
+
+- No edifício A foi atribuido às subinterfaces
 
 ```
 interface e0/0.10
 ip access-group ALUNOS_A in
 ```
 
-- En el edificio B, al tener la solución LEGACY, estan aplicadas directamente a las interfaces
+- No edifício B, por ter a solução LEGACY, são aplicadas diretamente às interfaces
 
 ```
 interface e2/2
