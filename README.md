@@ -808,14 +808,30 @@ spanning-tree guard loop
 ```
 
 ## ACL
+- Las ACL se han asignado todas con la característica 'in', ya que debido a las especificaciones de la red, era la mejor forma de prevenir el tráfico no deseado, prohibiendolo en origen y descargando de posibles paquetes que saturen la red.
+- Hay una ACL en cada VLAN del router de los edificios, para distribuir el tráfico lo más segregadamente posible
+- En el edificio A se asigno a las subinterfaces
+
+```
+interface e0/0.10
+ip access-group ALUNOS_A in
+```
+
+- En el edificio B, al tener la solución LEGACY, estan aplicadas directamente a las interfaces
+
+```
+interface e2/2
+ip access-group GESTAO_B in
+```
+
 
 ### GENERAL
 #### GESTAO
-
+```
 permit udp any host 10.0.3.1 eq 67 ! DHCP
-permit ip [IP_REDE_ORIGEN + MASCARA_INVERTIDA] [IP_REDE_DESTINO + MASCARA_INVERTIDA] ! Interedificios
-¿How can we set in single point?
-
+permit ip 192.168.92.0 0.0.0.21 192.168.91.0 0.0.0.21
+permit ip 192.168.92.0 0.0.0.21 192.168.90.0 0.0.0.21 
+```
 ### EDIFICIO A
 #### ALUNOS
 ```
@@ -870,6 +886,13 @@ permit udp any host 192.168.70.1 eq 67 ! DHCP
 permit udp any host 255.255.255.255 eq 67 ! DHCP
 permit ip 192.168.70.0 0.0.0.31 192.168.71.0 0.0.0.31 ! Interedificios
 ```
+#### GESTAO
+```
+permit udp any host 10.0.3.1 eq 67 ! DHCP
+permit ip 192.168.90.0 0.0.0.21 192.168.91.0 0.0.0.21
+permit ip 192.168.90.0 0.0.0.21 192.168.92.0 0.0.0.21 
+```
+
 
 ### EDIFICIO B
 #### ALUNOS
@@ -968,6 +991,13 @@ ip access-list extended TELEFONES_B
 permit udp any host 255.255.255.255 eq 67 ! DHCP
 
 permit ip 192.168.71.0 0.0.0.31 192.168.70.0 0.0.0.31 ! Interedificios
+```
+
+#### GESTAO
+```
+permit udp any host 10.0.3.1 eq 67 ! DHCP
+permit ip 192.168.91.0 0.0.0.21 192.168.90.0 0.0.0.21
+permit ip 192.168.91.0 0.0.0.21 192.168.92.0 0.0.0.21 
 ```
 
 ## VERIFICAÇÕES
